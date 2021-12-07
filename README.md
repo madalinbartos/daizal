@@ -1,4 +1,4 @@
-### DAIZAL
+# DAIZAL
 
 ## Table of contents
 * [General info](#general-info)
