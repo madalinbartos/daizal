@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { Formik, Form } from "formik";
 import { Box, Button } from "@chakra-ui/core";
 import { Layout } from "../components/Layout";
@@ -8,11 +8,10 @@ import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
 import { withApollo } from "../utils/withApollo";
 
-interface registerProps {}
-
-const Register: React.FC<registerProps> = ({}) => {
+const Register: FC = () => {
   const router = useRouter();
   const [register] = useRegisterMutation();
+
   return (
     <Layout variant="small" pageTitle="Register">
       <Formik

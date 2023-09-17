@@ -1,4 +1,5 @@
-import { cacheExchange, Resolver, Cache } from "@urql/exchange-graphcache";
+import Router from "next/router";
+import gql from "graphql-tag";
 import {
   dedupExchange,
   Exchange,
@@ -6,6 +7,7 @@ import {
   stringifyVariables,
 } from "urql";
 import { pipe, tap } from "wonka";
+import { cacheExchange, Resolver, Cache } from "@urql/exchange-graphcache";
 import {
   LoginMutation,
   LogoutMutation,
@@ -16,20 +18,20 @@ import {
   DeletePostMutationVariables,
 } from "../generated/graphql";
 import { betterUpdateQuery } from "./betterUpdateQuery";
-import Router from "next/router";
-import gql from "graphql-tag";
 import { isServer } from "./isServer";
 
-const errorExchange: Exchange = ({ forward }) => (ops$) => {
-  return pipe(
-    forward(ops$),
-    tap(({ error }) => {
-      if (error?.message.includes("not authenticated")) {
-        Router.replace("/login");
-      }
-    })
-  );
-};
+const errorExchange: Exchange =
+  ({ forward }) =>
+  (ops$) => {
+    return pipe(
+      forward(ops$),
+      tap(({ error }) => {
+        if (error?.message.includes("not authenticated")) {
+          Router.replace("/login");
+        }
+      })
+    );
+  };
 
 const cursorPagination = (): Resolver => {
   return (_parent, fieldArgs, cache, info) => {

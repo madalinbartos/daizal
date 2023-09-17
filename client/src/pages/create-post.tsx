@@ -1,17 +1,18 @@
-import { Box, Button } from "@chakra-ui/core";
-import { Form, Formik } from "formik";
+import { FC } from "react";
 import { useRouter } from "next/router";
-import React from "react";
+import { Form, Formik } from "formik";
+import { Box, Button } from "@chakra-ui/core";
 import { InputField } from "../components/InputField";
 import { Layout } from "../components/Layout";
 import { useCreatePostMutation } from "../generated/graphql";
 import { useIsAuth } from "../utils/useIsAuth";
 import { withApollo } from "../utils/withApollo";
 
-const CreatePost: React.FC<{}> = ({}) => {
+const CreatePost: FC = () => {
   const router = useRouter();
   useIsAuth();
   const [createPost] = useCreatePostMutation();
+
   return (
     <Layout variant="regular" pageTitle="Daizal - Create post">
       <Formik

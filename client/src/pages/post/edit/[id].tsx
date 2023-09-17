@@ -1,7 +1,6 @@
+import { useRouter } from "next/router";
 import { Box, Button } from "@chakra-ui/core";
 import { Form, Formik } from "formik";
-import { useRouter } from "next/router";
-import React from "react";
 import { InputField } from "../../../components/InputField";
 import { Layout } from "../../../components/Layout";
 import {
@@ -21,6 +20,7 @@ const EditPost = ({}) => {
     },
   });
   const [updatePost] = useUpdatePostMutation();
+
   if (loading) {
     return (
       <Layout pageTitle="Loading">

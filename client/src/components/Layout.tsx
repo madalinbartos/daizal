@@ -1,18 +1,14 @@
-import React from "react";
+import { FC } from "react";
+import Head from "next/head";
 import { Wrapper, WrapperVariant } from "./Wrapper";
 import { NavBar } from "./NavBar";
-import Head from "next/head";
 
 interface LayoutProps {
   variant?: WrapperVariant;
   pageTitle?: string;
 }
 
-export const Layout: React.FC<LayoutProps> = ({
-  children,
-  variant,
-  pageTitle,
-}) => {
+export const Layout: FC<LayoutProps> = ({ children, variant, pageTitle }) => {
   return (
     <>
       {pageTitle && (

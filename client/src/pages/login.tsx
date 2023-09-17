@@ -1,17 +1,18 @@
-import React from "react";
+import { FC } from "react";
 import { Formik, Form } from "formik";
+import { useRouter } from "next/router";
+import NextLink from "next/link";
 import { Box, Button, Link, Flex } from "@chakra-ui/core";
 import { Layout } from "../components/Layout";
 import { InputField } from "../components/InputField";
 import { useLoginMutation, MeQuery, MeDocument } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
-import { useRouter } from "next/router";
-import NextLink from "next/link";
 import { withApollo } from "../utils/withApollo";
 
-const Login: React.FC<{}> = ({}) => {
+const Login: FC = () => {
   const router = useRouter();
   const [login] = useLoginMutation();
+
   return (
     <Layout variant="small" pageTitle="Daizal - Login">
       <Formik

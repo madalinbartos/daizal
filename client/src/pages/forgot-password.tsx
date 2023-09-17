@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Layout } from "../components/Layout";
+import { FC, useState } from "react";
 import { Formik, Form } from "formik";
-import { InputField } from "../components/InputField";
 import { Box, Button } from "@chakra-ui/core";
+import { Layout } from "../components/Layout";
+import { InputField } from "../components/InputField";
 import { useForgotPasswordMutation } from "../generated/graphql";
 import { withApollo } from "../utils/withApollo";
 
-const ForgotPassword: React.FC<{}> = ({}) => {
+const ForgotPassword: FC = () => {
   const [complete, setComplete] = useState(false);
   const [forgotPassword] = useForgotPasswordMutation();
+
   return (
     <Layout variant="small" pageTitle="Daizal - Forgot password">
       <Formik

@@ -1,4 +1,3 @@
-import { ObjectType, Field } from "type-graphql";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,8 +7,9 @@ import {
   BaseEntity,
   OneToMany,
 } from "typeorm";
+import { ObjectType, Field } from "type-graphql";
 import { Post } from "./Post";
-import { Updoot } from "./Updoot";
+import { Upvote } from "./Upvote";
 
 @ObjectType()
 @Entity()
@@ -32,8 +32,8 @@ export class User extends BaseEntity {
   @OneToMany(() => Post, (post) => post.creator)
   posts: Post[];
 
-  @OneToMany(() => Updoot, (updoot) => updoot.user)
-  updoots: Updoot[];
+  @OneToMany(() => Upvote, (upvote) => upvote.user)
+  upvotes: Upvote[];
 
   @Field(() => String)
   @CreateDateColumn()

@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import { FC, InputHTMLAttributes } from "react";
 import { useField } from "formik";
 import {
   FormControl,
@@ -14,17 +14,15 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   textarea?: boolean;
 };
 
-export const InputField: React.FC<InputFieldProps> = ({
+export const InputField: FC<InputFieldProps> = ({
   label,
   textarea,
   size: _,
   ...props
 }) => {
-  let InputOrTextarea = Input;
-  if (textarea) {
-    InputOrTextarea = Textarea;
-  }
   const [field, { error }] = useField(props);
+  const InputOrTextarea = textarea ? Textarea : Input;
+
   return (
     <FormControl isInvalid={!!error}>
       <FormLabel htmlFor={field.name}>{label}</FormLabel>

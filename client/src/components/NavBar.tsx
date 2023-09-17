@@ -1,13 +1,11 @@
-import React from "react";
+import { FC } from "react";
 import NextLink from "next/link";
+import { useApolloClient } from "@apollo/client";
 import { Box, Link, Flex, Button, Heading } from "@chakra-ui/core";
 import { useMeQuery, useLogoutMutation } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
-import { useApolloClient } from "@apollo/client";
 
-interface NavBarProps {}
-
-export const NavBar: React.FC<NavBarProps> = ({}) => {
+export const NavBar: FC = () => {
   const [logout, { loading: logoutFetching }] = useLogoutMutation();
   const apolloClient = useApolloClient();
   const { data, loading } = useMeQuery({

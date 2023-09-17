@@ -1,3 +1,4 @@
+import { getConnection } from "typeorm";
 import {
   Arg,
   Ctx,
@@ -12,9 +13,8 @@ import {
   Root,
   UseMiddleware,
 } from "type-graphql";
-import { getConnection } from "typeorm";
 import { Post } from "../entities/Post";
-import { Updoot } from "../entities/Updoot";
+import { Upvote } from "../entities/Upvote";
 import { User } from "../entities/User";
 import { isAuth } from "../middleware/isAuth";
 import { MyContext } from "../types";
@@ -23,6 +23,7 @@ import { MyContext } from "../types";
 class PostInput {
   @Field()
   title: string;
+
   @Field()
   text: string;
 }
@@ -31,6 +32,7 @@ class PostInput {
 class PaginatedPosts {
   @Field(() => [Post])
   posts: Post[];
+
   @Field()
   hasMore: boolean;
 }
@@ -50,18 +52,18 @@ export class PostResolver {
   @FieldResolver(() => Int, { nullable: true })
   async voteStatus(
     @Root() post: Post,
-    @Ctx() { updootLoader, req }: MyContext
+    @Ctx() { upvoteLoader, req }: MyContext
   ) {
     if (!req.session.userId) {
       return null;
     }
 
-    const updoot = await updootLoader.load({
+    const upvote = await upvoteLoader.load({
       postId: post.id,
       userId: req.session.userId,
     });
 
-    return updoot ? updoot.value : null;
+    return upvote ? upvote.value : null;
   }
 
   @Mutation(() => Boolean)
@@ -71,17 +73,17 @@ export class PostResolver {
     @Arg("value", () => Int) value: number,
     @Ctx() { req }: MyContext
   ) {
-    const isUpdoot = value !== -1;
-    const realValue = isUpdoot ? 1 : -1;
+    const isUpvote = value !== -1;
+    const realValue = isUpvote ? 1 : -1;
     const { userId } = req.session;
 
-    const updoot = await Updoot.findOne({ where: { postId, userId } });
+    const upvote = await Upvote.findOne({ where: { postId, userId } });
 
-    if (updoot && updoot.value !== realValue) {
+    if (upvote && upvote.value !== realValue) {
       await getConnection().transaction(async (tm) => {
         await tm.query(
           `
-    update updoot
+    update upvote
     set value = $1
     where "postId" = $2 and "userId" = $3
         `,
@@ -97,11 +99,11 @@ export class PostResolver {
           [2 * realValue, postId]
         );
       });
-    } else if (!updoot) {
+    } else if (!upvote) {
       await getConnection().transaction(async (tm) => {
         await tm.query(
           `
-    insert into updoot ("userId", "postId", value)
+    insert into upvote ("userId", "postId", value)
     values ($1, $2, $3)
         `,
           [userId, postId, realValue]
