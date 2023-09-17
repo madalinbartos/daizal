@@ -36,20 +36,21 @@ https://github.com/madalinbartos/daizal/assets/80919993/01ef9d27-947d-483a-9294-
 ## Getting Started
 To get started with Daizal, clone the repository, and then follow these steps:
 
-### Frontend
-1. Navigate to the `frontend` directory.
-2. Install the necessary dependencies using `yarn install`.
-3. Run the frontend app using `yarn dev`.
-4. Access the app in your browser at https://localhost:3000.
+### Backend (server)
+- Navigate to the `server` directory.
+- Install the necessary dependencies using `yarn install`.
+- Create a `.env` file with your environment variables based on the `.env.example` file.
+- Set up a PostgreSQL server with the configuration from `ormconfig.json`.
+- Set up a Redis server.
+- Build the app using `yarn build`.
+- Run database migrations using `yarn typeorm migration:run`.
+- Start the app using `yarn dev`.
 
-### Backend
-1. Navigate to the `backend` directory.
-2. Install the necessary dependencies using `yarn install`.
-3. Create a `.env` file in the backend directory with your environment variables based on the `.env.example` file.
-4. Set up a PostgreSQL server with the configuration from `ormconfig.json`.
-5. Set up a Redis server.
-6. Run database migrations using `yarn typeorm migration:run`.
-7. Start the app using `yarn dev`.
+### Frontend (client)
+- Navigate to the `client` directory.
+- Install the necessary dependencies using `yarn install`.
+- Start the app using `yarn dev`.
+- Access the app in your browser at https://localhost:3000.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
