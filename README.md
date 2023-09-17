@@ -31,6 +31,7 @@ Daizal is a mini version of Reddit, allowing users to freely share their thought
 - Redis
 
 ## Demo
+https://github.com/madalinbartos/daizal/assets/80919993/01ef9d27-947d-483a-9294-de3dba28c1b6
 
 ## Getting Started
 To get started with Daizal, clone the repository, and then follow these steps:
